@@ -2,7 +2,6 @@ import React from "react";
 import "./Join.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 const Join = () => {
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ const Join = () => {
   }
 
   let days = [];
-  // let date = new Date(form.year, form.month, 0).getDate();
   for (let d = 1; d <= 31; d += 1) {
     days.push(d.toString() + "일");
   }

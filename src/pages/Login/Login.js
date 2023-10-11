@@ -3,26 +3,51 @@ import "./Login.scss";
 import logo1 from "./Logo.png";
 import logo2 from "./logo_wecode.png";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Login = () => {
+  // 라우터를 통해 네비게이트 함수 활성화
   const navigate = useNavigate();
 
+  // 이메일, 비밀번호 저장할 State 사용 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // 이메일, 비밀번호를 객체로 저장할 State 사용
+  const [user, setUser] = useState([]);
+
+  // 이메일, 비밀번호를 저장할 함수 사용
   const setChangeEmail = (event) => {
     setEmail(event.target.value);
-  }
+  };
 
   const setChangePassword = (event) => {
     setPassword(event.target.value);
-  }
-
-  const goToMain = () => {
-    navigate("/main");
   };
 
+  // 버튼을 활성화시킬 수 있는 active 변수 사용
+  const [active, setActive] = useState(false);
+
+  // 로그인 버튼을 눌렀을때 이메일과 비밀번호를 저장하면서 동시에 메인 페이지 이동
+  const goToMain = () => {
+    const newUser = {
+      id: user.length + 1,
+      email: email,
+      password: password,
+    };
+
+    setUser([...user, newUser]);
+    navigate('/main');
+  };
+
+  // 이메일에 '@'이 포함되어 있으며 비밀번호의 길이가 5글자 이상일 때 로그인 버튼 활성화
+  const passedLogin = () => {
+    return email.includes('@') && password.length >= 5
+      ? setActive(true)
+      : setActive(false);
+  };
+
+  // 회원가입 페이지 이동 함수
   const goToJoin = () => {
     navigate('/join');
   };
@@ -35,25 +60,23 @@ const Login = () => {
       </div>
 
       <div className="email-password">
-        <input className="input" type="text" placeholder="이메일"></input>
-        <input
-          className="input"
-          type="password"
-          placeholder="비밀번호"
-        ></input>
-        <button onClick={goToMain} className="loginbtn">
-          로그인
-        </button>
+        <input onKeyUp={passedLogin} className="input" type="text" placeholder="이메일" value={email} onChange={setChangeEmail}></input>
+
+        <input onKeyUp={passedLogin} className="input" type="password" placeholder="비밀번호" value={password} onChange={setChangePassword}></input>
+
+        {/* 로그인이 가능하면 초록색으로 전환 */}
+        <button
+          onClick={goToMain} className={!active ? "loginbtn" : "loginbtn-access"} disabled={!active}>로그인</button>
       </div>
 
       <div className="buttons">
-        <button onClick={goToJoin} className="btn join">
-          회원 가입
-        </button>
+        <button onClick={goToJoin} className="btn join">회원 가입</button>
+
         <div>|</div>
+
         <button className="btn find">비밀번호 찾기</button>
       </div>
-    </div>
+    </div >
   );
 };
 

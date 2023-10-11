@@ -1,16 +1,20 @@
+@import '../../styles/variable.scss';
+
 .login {
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  @include flexSort(column, center, center);
 
   .logo-board {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    @include flexSort(column, center, center);
     width: 450px;
     height: 300px;
     margin: 0 auto 50px auto;
@@ -22,7 +26,7 @@
     width: 480px;
 
     .input {
-      border: 1px solid #eeeeee;
+      border: 1px solid $basic-color;
       margin: 3px;
       padding: 10px;
       height: 15px;
@@ -38,36 +42,41 @@
       height: 35px;
       border-radius: 5px;
       cursor: pointer;
-
-      .link {
-        color: white;
-        text-decoration: none;
-      }
-
-      &:active {
-        opacity: 0.8;
-      }
     }
-  }
 
-
-
-  .buttons {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-
-    .btn {
+    .loginbtn-access {
       border: none;
-      background-color: white;
-      font-size: 10px;
+      background-color: #56ad7e;
+      color: white;
+      font-weight: bold;
+      margin: 10px 5px 5px 5px;
+      height: 35px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    div {
-      font-weight: lighter;
-      color: #eeeeee;
-      margin: 0 15px 0 15px;
+    &:active {
+      opacity: 0.8;
     }
+  }
+}
+
+.buttons {
+  // display: flex;
+  // flex-direction: row;
+  @include flexSort(row, 0, 0);
+  margin-top: 5px;
+
+  .btn {
+    border: none;
+    background-color: white;
+    font-size: 10px;
+    cursor: pointer;
+  }
+
+  div {
+    font-weight: lighter;
+    color: $basic-color;
+    margin: 0 15px 0 15px;
   }
 }
