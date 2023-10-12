@@ -6,8 +6,56 @@ import { useNavigate } from "react-router-dom";
 const Join = () => {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVerify, setPasswordVerify] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+
+  const setChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const setChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const setChangePasswordVerify = (event) => {
+    setPasswordVerify(event.target.value);
+  };
+
+  const setChangeNickname = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const setChangeMobileNumber = (event) => {
+    setMobileNumber(event.target.value);
+  };
+
+  const [user, setUser] = useState([]);
+
   const goToLogin = () => {
     navigate("/");
+  };
+
+  const signUp = () => {
+    if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+      alert('이메일 형식이 아닙니다.');
+    } else if (password !== passwordVerify) {
+      alert('비밀번호가 다릅니다.');
+    } else {
+      const newUser = {
+        id: user.length + 1,
+        email: email,
+        password: password,
+        nickname: nickname,
+        mobileNumber: mobileNumber,
+      };
+
+      setUser([...user, newUser]);
+      alert('회원가입이 완료되었습니다!');
+      navigate("/");
+    }
   };
 
   const [form, setForm] = useState({
@@ -50,33 +98,47 @@ const Join = () => {
       <div className="personalInfo">
         <div className="detail">
           <div>기본 정보</div>
-          <a className="remark">필수 사항</a>
+          <div className="remark">필수 사항</div>
         </div>
-        <input className="input email" type="text" placeholder="이메일"></input>
+        <input
+          onChange={setChangeEmail}
+          value={email}
+          className="input email"
+          type="text"
+          placeholder="이메일"
+        ></input>
+
         <input
           className="input password"
           type="password"
           placeholder="비밀번호"
+          onChange={setChangePassword}
+          value={password}
         ></input>
+
         <input
           className="input password-verify"
           type="password"
           placeholder="비밀번호 확인"
+          onChange={setChangePasswordVerify}
+          value={passwordVerify}
         ></input>
 
         <div className="detail">
           <div>닉네임과 프로필 이미지</div>
-          <a className="non-remark">선택 사항</a>
+          <div className="non-remark">선택 사항</div>
         </div>
         <input
           className="input nickname"
           type="text"
           placeholder="닉네임"
+          onChange={setChangeNickname}
+          value={nickname}
         ></input>
 
         <div className="detail">
           <div>전화번호</div>
-          <a className="non-remark">선택 사항</a>
+          <div className="non-remark">선택 사항</div>
         </div>
         <div className="mobile-number">
           <select className="pre-number">
@@ -90,12 +152,14 @@ const Join = () => {
             className="input mobile"
             type="text"
             placeholder="휴대폰 번호를 입력해주세요."
+            onChange={setChangeMobileNumber}
+            value={mobileNumber}
           ></input>
         </div>
 
         <div className="detail">
           <div>생일</div>
-          <a className="non-remark">선택 사항</a>
+          <div className="non-remark">선택 사항</div>
         </div>
         <div className="birth">
           <select
@@ -133,7 +197,9 @@ const Join = () => {
           </select>
         </div>
 
-        <button className="joinbtn">
+        <button
+          onClick={signUp}
+          className="joinbtn">
           회원 가입
         </button>
       </div>

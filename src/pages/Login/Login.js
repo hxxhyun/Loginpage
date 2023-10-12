@@ -40,9 +40,16 @@ const Login = () => {
     navigate('/main');
   };
 
+  // Enter키를 누르면 로그인화면 전환
+  const handleOnClick = (event) => {
+    if (event.key === 'Enter' && active === true) {
+      goToMain();
+    }
+  };
+
   // 이메일에 '@'이 포함되어 있으며 비밀번호의 길이가 5글자 이상일 때 로그인 버튼 활성화
   const passedLogin = () => {
-    return email.includes('@') && password.length >= 5
+    return email.includes('@') && password.length >= 5 && email.includes('.')
       ? setActive(true)
       : setActive(false);
   };
@@ -60,9 +67,9 @@ const Login = () => {
       </div>
 
       <div className="email-password">
-        <input onKeyUp={passedLogin} className="input" type="text" placeholder="이메일" value={email} onChange={setChangeEmail}></input>
+        <input onKeyUp={passedLogin} className="input" type="text" placeholder="이메일" value={email} onChange={setChangeEmail} onKeyPress={handleOnClick}></input>
 
-        <input onKeyUp={passedLogin} className="input" type="password" placeholder="비밀번호" value={password} onChange={setChangePassword}></input>
+        <input onKeyUp={passedLogin} className="input" type="password" placeholder="비밀번호" value={password} onChange={setChangePassword} onKeyPress={handleOnClick}></input>
 
         {/* 로그인이 가능하면 초록색으로 전환 */}
         <button
